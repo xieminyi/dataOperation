@@ -1,7 +1,6 @@
 const express = require("express"),
-    bodyParser = require('body-parser');
-
-const app = express();
+      bodyParser = require('body-parser'),
+	  app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -9,7 +8,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.all('/*', (req, res, next) => { // Enable Cross Origin Resource Sharing
-
 	//CORS headers
 	res.header("Access-Control-Allow-Origin", "*"); 
 	res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
@@ -23,7 +21,8 @@ app.all('/*', (req, res, next) => { // Enable Cross Origin Resource Sharing
 	}
 });
 
-app.use('/', require('./routes')); // The list of routes for our application.
+// The list of routes for our application.
+app.use('/', require('./routes')); 
 
 // If no route is matched by now, it must be a 400
 app.use((err, req, res, next) => {
@@ -41,4 +40,5 @@ const server = app.listen(app.get('port'), () => { // Start the server
   console.log('Server starts');
 });
 
-module.exports = app; // for testing
+// for testing
+module.exports = app; 

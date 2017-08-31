@@ -6,17 +6,14 @@ var filter = {
 	// - @return "No payloads" if request is none or empty array
 	// - @return filtered data with status eql 200
 	request: (req, res) => {
-
 		var payload = req.body.payload || '';
-
 		try{
-			if(payload == '' || payload.length<1 || payload.constructor.toString().indexOf("Array") <= -1){ 
-				// No payload
+			if(payload == '' || payload.constructor.toString().indexOf("Array") <= -1){ 
 				res.status(400);
 				res.setHeader('Content-Type', 'application/json');
     			res.send(JSON.stringify({
 					status : 400,
-					message: "No payloads",
+					message: "Could not decode request: JSON parsing failed",
 				}, null, 3));
 				return;
 			}
@@ -27,18 +24,16 @@ var filter = {
 			res.setHeader('Content-Type', 'application/json');
     		res.send(JSON.stringify({response: rtnData}, null, 3));
     		return;
-
 		} catch (err){
 			res.status(400);
 			res.setHeader('Content-Type', 'application/json');
 			res.send(JSON.stringify({
 				status: 400,
-				error: 'Could not decode request: JSON parsing failed'
+				error: 'Could not decode request: Internal error'
 			}, null, 3));
 		}
 	},
 };
-
 
 // Private function
 
