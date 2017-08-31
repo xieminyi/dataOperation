@@ -3,12 +3,16 @@
 var filter = {
 
 	//!\ METHOD :
-	// - @return error log if request is none or empty array
-	// - @return filtered data with status eql 200
+	// - @return 200 filtered data
+	// - @return 400 error log if request is none or empty array
+	// - @return 500 error log if internal error
 	request: (req, res) => {
 		var payload = req.body.payload || '';
 		try{
 			if(payload == '' || payload.constructor.toString().indexOf("Array") <= -1){ 
+				// Log err and time to log file /var/log/myserver.log
+				console.log(new Date+': Fail to load payloads since JSON parsing issue');
+
 				res.status(400);
 				res.setHeader('Content-Type', 'application/json');
     			res.send(JSON.stringify({
@@ -25,10 +29,14 @@ var filter = {
     		res.send(JSON.stringify({response: rtnData}, null, 3));
     		return;
 		} catch (err){
-			res.status(400);
+			// Log err and time to log file /var/log/myserver.log
+			console.log(new Date+': Fail to load payloads since internal error');
+			console.log(err);
+
+			res.status(500);
 			res.setHeader('Content-Type', 'application/json');
 			res.send(JSON.stringify({
-				status: 400,
+				status: 500,
 				error: 'Could not decode request: Internal error'
 			}, null, 3));
 		}
@@ -40,14 +48,14 @@ var filter = {
 //!\ METHOD :
 // - @param list of objects
 // - @return required sets (drm = true, episodeCount > 0)
-function filterData(payload){
+function filterData(payloads){
 	var arr = [];
-	for(var i=0;i<payload.length;i++){
-		if(payload[i].drm == true && Number(payload[i].episodeCount) > 0){
+	for(var i=0;i<payloads.length;i++){
+		if(payloads[i].drm == true && Number(payloads[i].episodeCount) > 0){
 			arr.push({
-				image : payload[i].image.showImage,
-    			slug  : payload[i].slug,
-    			title : payload[i].title
+				image : payloads[i].image.showImage,
+    			slug  : payloads[i].slug,
+    			title : payloads[i].title
 			});
 		}
 	}

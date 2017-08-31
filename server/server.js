@@ -26,6 +26,9 @@ app.use('/', require('./routes'));
 
 // If no route is matched by now, it must be a 400
 app.use((err, req, res, next) => {
+	// Log err and time to log file /var/log/myserver.log
+	console.log(new Date+': Fail to load payloads since JSON parsing failed');
+	
   	res.status(400);
   	res.setHeader('Content-Type', 'application/json');
   	res.send(JSON.stringify({

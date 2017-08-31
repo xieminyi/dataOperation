@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "start": "node server/server.js"
+    "start": "node server/server.js >> /var/log/myserver.log 2>&1"
   },
   "keywords": [],
   "author": "Minyi Xie",
