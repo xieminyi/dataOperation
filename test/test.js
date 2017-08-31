@@ -21,14 +21,14 @@ describe("filters", () => {
 	describe("filters implementation", () => {
 		//!\ TEST - error responding:
 		// - 400
-		it("Should have response = {status: 400, message: 'No payloads'}", (done) => {
+		it("Should have response = {status: 400, error: 'Could not decode request: JSON parsing failed'}", (done) => {
 			var filter = '';
 	        chai.request(server)
             	.post('/')
             	.send({filter: filter})
             	.end((err, res) => {
             		res.body.should.be.a('object');
-            		res.body.should.have.property('message').eql('No payloads');
+            		res.body.should.have.property('error').eql('Could not decode request: JSON parsing failed');
             		done();
 	            });
 		});

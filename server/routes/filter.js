@@ -13,7 +13,7 @@ var filter = {
 				res.setHeader('Content-Type', 'application/json');
     			res.send(JSON.stringify({
 					status : 400,
-					message: "Could not decode request: JSON parsing failed",
+					error: "Could not decode request: JSON parsing failed",
 				}, null, 3));
 				return;
 			}
