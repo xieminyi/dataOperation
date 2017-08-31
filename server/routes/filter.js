@@ -3,7 +3,7 @@
 var filter = {
 
 	//!\ METHOD :
-	// - @return "No payloads" if request is none or empty array
+	// - @return error log if request is none or empty array
 	// - @return filtered data with status eql 200
 	request: (req, res) => {
 		var payload = req.body.payload || '';
