@@ -1,12 +1,12 @@
-var assert   = require("assert");
-var filter    = require('../server/routes/filter.js');
+const assert   = require("assert");
+const filter    = require('../server/routes/filter.js');
 
-var chai 	 = require('chai');
-var chaiHttp = require('chai-http');
-var should 	 = chai.should();
+const chai 	 = require('chai');
+const chaiHttp = require('chai-http');
+const should 	 = chai.should();
 chai.use(chaiHttp);
 
-var server   = require('../server/server.js');
+const server   = require('../server/server.js');
 
 describe("filters", () => {
 	//!\ TEST :
